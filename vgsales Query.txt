@@ -1,0 +1,28 @@
+---top 5 best genre for every platform
+WITH ranking as
+(
+SELECT *, 
+	ROW_NUMBER()OVER(PARTITION BY "platform" ORDER BY "global_sales" DESC) genre_rank
+FROM vgsales
+)
+SELECT genre_rank, platform, genre, na_sales, eu_sales, jp_sales, other_sales, global_sales 
+FROM ranking
+WHERE genre_rank <= 5
+
+
+
+--Total Sales and Total Games in Every Genre For Each Publisher in Every Platform
+SELECT 
+	platform,
+	publisher,
+	genre,
+	COUNT(*) total_games,
+	SUM(na_sales) total_na_sales,
+	SUM(eu_sales) total_eu_sales,
+	SUM(jp_sales) total_jp_sales,
+	SUM(other_sales) total_other_sales,
+	SUM(global_sales) total_global_sales
+FROM vgsales
+WHERE publisher IS NOT NULL
+GROUP BY 1,2,3
+ORDER BY platform ASC, publisher ASC, total_global_sales DESC, total_games DESC

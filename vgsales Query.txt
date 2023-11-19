@@ -26,3 +26,11 @@ FROM vgsales
 WHERE publisher IS NOT NULL
 GROUP BY 1,2,3
 ORDER BY platform ASC, publisher ASC, total_global_sales DESC, total_games DESC
+
+
+
+-- Total Sales of Each Genre for Every Region
+SELECT genre, SUM(na_sales) as na_sales, SUM(eu_sales) as eu_sales, SUM(jp_sales) as jp_sales
+FROM vgsales
+GROUP BY 1
+ORDER BY na_sales DESC, eu_sales DESC, jp_sales DESC

@@ -7,7 +7,7 @@ FROM vgsales
 )
 SELECT genre_rank, platform, genre, na_sales, eu_sales, jp_sales, other_sales, global_sales 
 FROM ranking
-WHERE genre_rank <= 5
+WHERE genre_rank <= 5;
 
 
 
@@ -25,7 +25,7 @@ SELECT
 FROM vgsales
 WHERE publisher IS NOT NULL
 GROUP BY 1,2,3
-ORDER BY platform ASC, publisher ASC, total_global_sales DESC, total_games DESC
+ORDER BY platform ASC, publisher ASC, total_global_sales DESC, total_games DESC;
 
 
 
@@ -33,4 +33,4 @@ ORDER BY platform ASC, publisher ASC, total_global_sales DESC, total_games DESC
 SELECT genre, SUM(na_sales) as na_sales, SUM(eu_sales) as eu_sales, SUM(jp_sales) as jp_sales
 FROM vgsales
 GROUP BY 1
-ORDER BY na_sales DESC, eu_sales DESC, jp_sales DESC
+ORDER BY na_sales DESC, eu_sales DESC, jp_sales DESC;
